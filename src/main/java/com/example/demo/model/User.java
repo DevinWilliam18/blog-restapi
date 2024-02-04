@@ -3,15 +3,19 @@ package com.example.demo.model;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.mapping.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -31,7 +35,7 @@ public class User implements UserDetails{
         name = "UUID",
         strategy = "org.hibernate.id.UUIDGenerator"
     )
-    private String userId;
+    private String id;
 
     @Column(name = "fullname", unique = true)
     private String fullname;
@@ -42,9 +46,10 @@ public class User implements UserDetails{
     @Column(unique = true)
     private String email;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private List<Article> articles;
 
-
+    @OneToOne
     private Role role;
 
     @Column(name = "created_at")
@@ -53,8 +58,6 @@ public class User implements UserDetails{
 
     @Column(name = "updated_at")
     private Date updatedAt;
-
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
