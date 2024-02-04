@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -24,8 +26,8 @@ import lombok.Builder;
 
 @Builder
 @Entity
-@Table (name = "users")
 @AllArgsConstructor
+@Table(name = "users")
 public class User implements UserDetails{
 
     @Id
@@ -49,15 +51,16 @@ public class User implements UserDetails{
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private List<Article> articles;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id", referencedColumnName = "role_id")
     private Role role;
 
     @Column(name = "created_at")
-    private Date createdAt;
+    private Timestamp createdAt;
 
 
     @Column(name = "updated_at")
-    private Date updatedAt;
+    private Timestamp updatedAt;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

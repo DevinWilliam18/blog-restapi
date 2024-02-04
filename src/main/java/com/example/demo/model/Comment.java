@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -16,6 +17,7 @@ import lombok.Builder;
 
 @Builder
 @Entity
+@Table(name = "comments")
 public class Comment {
     
     @Id
@@ -32,7 +34,7 @@ public class Comment {
 
     
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")    
+    @JoinColumn(name = "article_id")    
     private Article article;
 
     private Timestamp created_at;

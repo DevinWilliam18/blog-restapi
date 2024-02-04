@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -21,6 +22,7 @@ import lombok.Builder;
 
 @Builder
 @Entity
+@Table(name = "articles")
 public class Article {
 
     @Id
@@ -34,10 +36,10 @@ public class Article {
     
     private String title;
 
-    private String desc;
+    private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
     private User user;
     
 
@@ -45,7 +47,7 @@ public class Article {
     private State state;
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "article", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "article", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
     private Timestamp created_at;
