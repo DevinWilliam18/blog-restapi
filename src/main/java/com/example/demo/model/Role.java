@@ -11,11 +11,13 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 import lombok.Builder;
+import lombok.Data;
 
 
 @Builder
 @Entity
 @Table(name = "roles")
+@Data
 public class Role {
 
     @Id

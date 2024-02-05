@@ -23,11 +23,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 
 @Builder
 @Entity
 @AllArgsConstructor
 @Table(name = "users")
+@Data
 public class User implements UserDetails{
 
     @Id

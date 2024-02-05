@@ -19,10 +19,12 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 import lombok.Builder;
+import lombok.Data;
 
 @Builder
 @Entity
 @Table(name = "articles")
+@Data
 public class Article {
 
     @Id
