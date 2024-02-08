@@ -53,9 +53,15 @@ public class User implements UserDetails{
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private List<Article> articles;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id", referencedColumnName = "role_id")
-    private Role role;
+    // @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    // @JoinColumn(name = "role_id", referencedColumnName = "role_id")
+    // private Role role;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "to", cascade = CascadeType.ALL)
+    private List<Friendship> followers;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "from", cascade = CascadeType.ALL)
+    private List<Friendship> following;
 
     @Column(name = "created_at")
     private Timestamp createdAt;

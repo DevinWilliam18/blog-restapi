@@ -37,13 +37,13 @@ public class Comment {
     private String commentBody;
 
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "article_id")    
     private Article article;
 
     
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @OneToOne
+    @JoinColumn(name = "user_id")
     private User user;
     
     private Timestamp created_at;

@@ -6,35 +6,46 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
 import lombok.Builder;
 import lombok.Data;
 
-
-@Builder
+/**
+ * Friendship
+ */
 @Entity
-@Table(name = "roles")
+@Builder
 @Data
-public class Role {
+public class Friendship {
+    
 
     @Id
-    @Column(name = "role_id")
+    @Column(name = "friendship_id")
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
         name = "UUID",
         strategy = "org.hibernate.id.UUIDGenerator"
-    )
+    )    
     private String id;
 
-    @Column(name = "role_name", unique = true)
-    private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "from_user_id")
+    private User from;
+
+    @ManyToOne
+    @JoinColumn(name = "to_user_id")
+    private User to;
+
+    @Column(name = "created_at")
+    private Timestamp createdAt;
 
 
-    private Timestamp created_at;
+    @Column(name = "updated_at")
+    private Timestamp updatedAt;
 
-
-    private Timestamp updated_at;
 }
