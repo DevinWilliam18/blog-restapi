@@ -22,7 +22,6 @@ import lombok.Data;
 @Data
 public class Friendship {
     
-
     @Id
     @Column(name = "friendship_id")
     @GeneratedValue(generator = "UUID")
@@ -31,7 +30,6 @@ public class Friendship {
         strategy = "org.hibernate.id.UUIDGenerator"
     )    
     private String id;
-
 
     @ManyToOne
     @JoinColumn(name = "from_user_id")
@@ -43,7 +41,6 @@ public class Friendship {
 
     @Column(name = "created_at")
     private Timestamp createdAt;
-
 
     @Column(name = "updated_at")
     private Timestamp updatedAt;
