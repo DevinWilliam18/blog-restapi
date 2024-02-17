@@ -20,6 +20,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Builder
 @Entity

@@ -32,6 +32,8 @@ public class ArticleRepoTest {
 
     private User user;
 
+    private User userStored;
+
     private static final Logger logger = LoggerFactory.getLogger(ArticleRepoTest.class);
 
     @BeforeEach
@@ -44,13 +46,15 @@ public class ArticleRepoTest {
                     .createdAt(new Timestamp(System.currentTimeMillis()))
                     .updatedAt(new Timestamp(System.currentTimeMillis()))
                     .build();
-
+        
+        userStored =  userRepository.save(user);
+        
         article = Article
                         .builder()
                         .title("Java Framework")
                         .description("adasdadadjakdjajd")
                         .state(State.PUBLISHED)
-                        // .user(user)
+                        .user(userStored)
                         .created_at(new Timestamp(System.currentTimeMillis()))
                         .updated_at(new Timestamp(System.currentTimeMillis()))
                         .build();
@@ -59,13 +63,13 @@ public class ArticleRepoTest {
 
     @Test
     void testFindByUser() {
-        userRepository.save(user);
 
+        //store the article
         articleRepo.save(article);
         
-        List<Article> result = articleRepo.findByUserId(user.getId());
-
+        List<Article> result = articleRepo.findByUserId(userStored.getId());
         logger.info("User ID: {}", user.getId());
+        logger.info("UserStored ID: {}", userStored.getId());
         
         assertEquals(1, result.size());
 
