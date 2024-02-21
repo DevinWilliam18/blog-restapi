@@ -13,9 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import com.example.demo.model.Article;
+import com.example.demo.model.Friendship;
 import com.example.demo.model.State;
 import com.example.demo.model.User;
 import com.example.demo.repo.ArticleRepo;
+import com.example.demo.repo.FriendshipRepo;
 import com.example.demo.repo.UserRepository;
 
 @DataJpaTest
@@ -27,12 +29,18 @@ public class ArticleRepoTest {
     @Autowired
     private ArticleRepo articleRepo;
 
+    @Autowired
+    private FriendshipRepo friendshipRepo;
+
 
     private Article article;
 
-    private User user;
+    private User user, user_2;
 
-    private User userStored;
+    private User userStored, userStored_2;
+
+    private Friendship friendship;
+
 
     private static final Logger logger = LoggerFactory.getLogger(ArticleRepoTest.class);
 
@@ -43,11 +51,34 @@ public class ArticleRepoTest {
                     .fullname("VIns")
                     .email("devin@gmail.com")
                     .password("xx090")
+                    .username("vindes_99")
                     .createdAt(new Timestamp(System.currentTimeMillis()))
                     .updatedAt(new Timestamp(System.currentTimeMillis()))
                     .build();
         
+        user_2 = User.builder()
+                    .fullname("Edokis Desak")
+                    .email("edo9011@gmail.com")
+                    .password("xxc90i17")
+                    .username("edoks_24")
+                    .createdAt(new Timestamp(System.currentTimeMillis()))
+                    .updatedAt(new Timestamp(System.currentTimeMillis()))
+                    .build();
+
         userStored =  userRepository.save(user);
+
+        //save another user
+        userStored_2 = userRepository.save(user_2);
+
+
+        friendship = Friendship.builder()
+                                .from(userStored)
+                                .to(userStored_2)
+                                .createdAt(new Timestamp(System.currentTimeMillis()))
+                                .updatedAt(new Timestamp(System.currentTimeMillis()))
+                                .build();
+                                
+        friendshipRepo.save(friendship);
         
         article = Article
                         .builder()
@@ -68,6 +99,7 @@ public class ArticleRepoTest {
         articleRepo.save(article);
         
         List<Article> result = articleRepo.findByUserId(userStored.getId());
+        
         logger.info("User ID: {}", user.getId());
         logger.info("UserStored ID: {}", userStored.getId());
         

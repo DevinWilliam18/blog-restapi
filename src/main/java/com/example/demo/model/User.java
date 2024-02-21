@@ -82,13 +82,21 @@ public class User implements UserDetails{
     @Override
     public String getPassword() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPassword'");
+        try {
+            return this.password;
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'getPassword'");
+        }
     }
 
     @Override
     public String getUsername() {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getUsername'");
+        try {
+            return this.username;
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'getUsername'");
+        }
     }
 
     @Override

@@ -50,7 +50,7 @@ public class DemoApplication {
 									.fullname("Devin William")
 									.email("vins@gmail.com")
 									.password("1234")
-									// .role(role)
+									.username("devin9023@gmail.com")
 									.createdAt(new Timestamp(System.currentTimeMillis()))
 									.updatedAt(new Timestamp(System.currentTimeMillis()))
 									.build();
@@ -59,7 +59,7 @@ public class DemoApplication {
 									.fullname("Eko Khan")
 									.email("khan@gmail.com")
 									.password("khan_1234")
-									// .role(role)
+									.username("eko24@gmail.com")
 									.createdAt(new Timestamp(System.currentTimeMillis()))
 									.updatedAt(new Timestamp(System.currentTimeMillis()))
 									.build();

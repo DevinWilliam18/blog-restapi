@@ -9,4 +9,6 @@ import com.example.demo.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, String>{
     User findByUsername(String username);
+    
+    // User findUserByFollowers_to_user_id(String id);
 }
