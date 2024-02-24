@@ -20,7 +20,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Builder
 @Entity
@@ -50,7 +49,7 @@ public class Article {
     private State state;
 
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "article", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "article", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
     private Timestamp created_at;

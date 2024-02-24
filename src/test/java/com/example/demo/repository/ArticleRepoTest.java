@@ -102,7 +102,8 @@ public class ArticleRepoTest {
         
         logger.info("User ID: {}", user.getId());
         logger.info("UserStored ID: {}", userStored.getId());
-        
+        logger.info("List (User): {}", result);
+
         assertEquals(1, result.size());
 
     }

@@ -42,7 +42,7 @@ public class Comment {
     private Article article;
 
     
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
     
