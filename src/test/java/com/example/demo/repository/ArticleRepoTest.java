@@ -33,7 +33,7 @@ public class ArticleRepoTest {
     private FriendshipRepo friendshipRepo;
 
 
-    private Article article;
+    private Article article, article2, article3;
 
     private User user, user_2;
 
@@ -90,21 +90,49 @@ public class ArticleRepoTest {
                         .updated_at(new Timestamp(System.currentTimeMillis()))
                         .build();
 
+        article2 = Article
+                        .builder()
+                        .title("Javascript Framework")
+                        .description("asdasd")
+                        .state(State.PUBLISHED)
+                        .user(userStored)
+                        .created_at(new Timestamp(System.currentTimeMillis()))
+                        .updated_at(new Timestamp(System.currentTimeMillis()))
+                        .build();
+
+        article3 = Article
+                        .builder()
+                        .title("Golang ORM")
+                        .description("sadfsfafasdasdasdasskfdjui98kyd-a]=]kxau")
+                        .state(State.PUBLISHED)
+                        .user(userStored)
+                        .created_at(new Timestamp(System.currentTimeMillis()))
+                        .updated_at(new Timestamp(System.currentTimeMillis()))
+                        .build();
+
+        articleRepo.save(article);
+        articleRepo.save(article2);
+        articleRepo.save(article3);
+        
     }
 
     @Test
     void testFindByUser() {
 
         //store the article
-        articleRepo.save(article);
-        
         List<Article> result = articleRepo.findByUserId(userStored.getId());
         
-        logger.info("User ID: {}", user.getId());
-        logger.info("UserStored ID: {}", userStored.getId());
-        logger.info("List (User): {}", result);
 
-        assertEquals(1, result.size());
+        assertEquals(3, result.size());
 
     }
+
+    @Test
+    void testFindByTitleLikeAndState(){
+        List<Article> articles = articleRepo.findByTitleContainingAndState("Java", State.PUBLISHED);
+        
+        assertEquals(2, articles.size());
+
+    }    
+
 }

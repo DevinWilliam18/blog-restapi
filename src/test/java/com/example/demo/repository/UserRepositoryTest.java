@@ -22,30 +22,32 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private FriendshipRepo friendshipRepo;
+    private User user, userStored;
 
-    private User user, user_2, userStored;
-
-
-    private Friendship friendship;
 
     private static final Logger logger = LoggerFactory.getLogger(UserRepositoryTest.class);    
 
     @BeforeEach
     private void setUpInit(){
 
-            
+        user = User.builder()
+                    .fullname("VIns")
+                    .email("devin@gmail.com")
+                    .password("xx090")
+                    .username("vindes_99")
+                    .createdAt(new Timestamp(System.currentTimeMillis()))
+                    .updatedAt(new Timestamp(System.currentTimeMillis()))
+                    .build();
+
+        userRepository.save(user);
 
     }
 
     @Test
     void testFindByUsername() {
+        userStored = userRepository.findByUsername("vindes_99");
 
+        assertEquals("vindes_99", userStored.getUsername());
     }
 
-    @Test
-    void testFindUserByFollowers_user_id() {
-
-    }
 }

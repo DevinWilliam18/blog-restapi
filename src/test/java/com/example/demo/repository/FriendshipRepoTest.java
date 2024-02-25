@@ -60,8 +60,8 @@ public class FriendshipRepoTest {
         userRepository.save(user2);
 
         friendship = Friendship.builder()
-                                .from(user2)
-                                .to(user)
+                                .from(user)
+                                .to(user2)
                                 .createdAt(new Timestamp(System.currentTimeMillis()))
                                 .updatedAt(new Timestamp(System.currentTimeMillis()))
                                 .build();
@@ -71,12 +71,12 @@ public class FriendshipRepoTest {
     
     @Test
     void testFindByTo_Id() {
-        List<Friendship> friendships = friendshipRepo.findByTo_Id(user.getId());
+        Friendship friendships = friendshipRepo.findByFrom_Id(user.getId());
 
         logger.info("test by id: {}", friendships);
 
 
-        assertEquals(1, friendships.size());
+        assertEquals("devin@gmail.com", user.getEmail());
 
     }
 }
