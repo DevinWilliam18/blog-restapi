@@ -3,6 +3,7 @@ package com.example.demo.repository;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -110,10 +111,10 @@ public class ArticleRepoTest {
                         .updated_at(new Timestamp(System.currentTimeMillis()))
                         .build();
 
-        articleRepo.save(article);
-        articleRepo.save(article2);
-        articleRepo.save(article3);
+
         
+        articleRepo.saveAll(Arrays.asList(article, article2, article3));
+
     }
 
     @Test
