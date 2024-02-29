@@ -36,4 +36,3 @@ build/
 
 src/main/resources/application.properties
 src/main/java/com/example/demo/test.txt
-src/main/java/resources/application.properties

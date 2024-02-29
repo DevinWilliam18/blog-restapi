@@ -11,15 +11,20 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * Friendship
  */
 @Entity
 @Builder
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 public class Friendship {
     
     @Id

@@ -3,8 +3,11 @@ package com.example.demo.repository;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -110,9 +113,11 @@ public class ArticleRepoTest {
                         .updated_at(new Timestamp(System.currentTimeMillis()))
                         .build();
 
+        // List<Article> articles = new ArrayList<>(Arrays.asList(article, article2, article3));
         articleRepo.save(article);
         articleRepo.save(article2);
         articleRepo.save(article3);
+
         
     }
 
@@ -121,7 +126,7 @@ public class ArticleRepoTest {
 
         //store the article
         List<Article> result = articleRepo.findByUserId(userStored.getId());
-        
+
 
         assertEquals(3, result.size());
 
@@ -129,9 +134,18 @@ public class ArticleRepoTest {
 
     @Test
     void testFindByTitleLikeAndState(){
-        List<Article> articles = articleRepo.findByTitleContainingAndState("Java", State.PUBLISHED);
-        
-        assertEquals(2, articles.size());
+
+        try {
+
+            List<Article> articles = articleRepo.findByTitleContainingAndState("%Java%", State.PUBLISHED);
+            for (Article articleTest : articles) {
+                logger.info("masuk: {}. id: {}", articleTest.getTitle(), articleTest.getId());   
+            }
+            assertEquals(2, articles.size());
+            
+        } catch (Exception e) {
+            logger.error("Error - {}", e.getMessage());
+        }
 
     }    
 

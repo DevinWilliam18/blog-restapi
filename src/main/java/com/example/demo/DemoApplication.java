@@ -2,6 +2,7 @@ package com.example.demo;
 
 import java.sql.Timestamp;
 
+import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
@@ -89,7 +90,29 @@ public class DemoApplication {
 											.updated_at(new Timestamp(System.currentTimeMillis()))
 											.build();
 
-					articleRepo.save(article);
+					Article article2 = Article
+											.builder()
+											.title("Javascript Framework")
+											.description("asdasd")
+											.state(State.PUBLISHED)
+											.user(user)
+											.created_at(new Timestamp(System.currentTimeMillis()))
+											.updated_at(new Timestamp(System.currentTimeMillis()))
+											.build();
+					
+					Article	article3 = Article
+											.builder()
+											.title("Golang ORM")
+											.description("sadfsfafasdasdasdasskfdjui98kyd-a]=]kxau")
+											.state(State.PUBLISHED)
+											.user(user)
+											.created_at(new Timestamp(System.currentTimeMillis()))
+											.updated_at(new Timestamp(System.currentTimeMillis()))
+											.build();
+					
+					List<Article> articles = new ArrayList<>(Arrays.asList(article, article2, article3));
+
+					articleRepo.saveAll(articles);
 					
 					Comment comment = Comment.builder()
 											 .commentBody("great article")
