@@ -3,11 +3,10 @@ package com.example.demo.repository;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -40,8 +39,6 @@ public class ArticleRepoTest {
 
     private User user, user_2;
 
-    private User userStored, userStored_2;
-
     private Friendship friendship;
 
 
@@ -68,15 +65,15 @@ public class ArticleRepoTest {
                     .updatedAt(new Timestamp(System.currentTimeMillis()))
                     .build();
 
-        userStored =  userRepository.save(user);
+        userRepository.save(user);
 
         //save another user
-        userStored_2 = userRepository.save(user_2);
+        userRepository.save(user_2);
 
 
         friendship = Friendship.builder()
-                                .from(userStored)
-                                .to(userStored_2)
+                                .from(user)
+                                .to(user_2)
                                 .createdAt(new Timestamp(System.currentTimeMillis()))
                                 .updatedAt(new Timestamp(System.currentTimeMillis()))
                                 .build();
@@ -88,7 +85,7 @@ public class ArticleRepoTest {
                         .title("Java Framework")
                         .description("adasdadadjakdjajd")
                         .state(State.PUBLISHED)
-                        .user(userStored)
+                        .user(user)
                         .created_at(new Timestamp(System.currentTimeMillis()))
                         .updated_at(new Timestamp(System.currentTimeMillis()))
                         .build();
@@ -98,7 +95,7 @@ public class ArticleRepoTest {
                         .title("Javascript Framework")
                         .description("asdasd")
                         .state(State.PUBLISHED)
-                        .user(userStored)
+                        .user(user)
                         .created_at(new Timestamp(System.currentTimeMillis()))
                         .updated_at(new Timestamp(System.currentTimeMillis()))
                         .build();
@@ -108,28 +105,25 @@ public class ArticleRepoTest {
                         .title("Golang ORM")
                         .description("sadfsfafasdasdasdasskfdjui98kyd-a]=]kxau")
                         .state(State.PUBLISHED)
-                        .user(userStored)
+                        .user(user_2)
                         .created_at(new Timestamp(System.currentTimeMillis()))
                         .updated_at(new Timestamp(System.currentTimeMillis()))
                         .build();
 
-        // List<Article> articles = new ArrayList<>(Arrays.asList(article, article2, article3));
-        articleRepo.save(article);
-        articleRepo.save(article2);
-        articleRepo.save(article3);
+
 
         
+        articleRepo.saveAll(Arrays.asList(article, article2, article3));
+
     }
 
     @Test
     void testFindByUser() {
 
-        //store the article
-        List<Article> result = articleRepo.findByUserId(userStored.getId());
-
-
-        assertEquals(3, result.size());
-
+	    List<Article> result = articleRepo.findByUserId(user_2.getId());
+	    
+	    assertEquals(1, result.size());
+			
     }
 
     @Test

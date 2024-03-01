@@ -20,14 +20,18 @@ import org.hibernate.annotations.GenericGenerator;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Builder
 @Entity
 @Table(name = "articles")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
 public class Article {
 
     @Id
