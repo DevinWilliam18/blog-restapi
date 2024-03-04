@@ -17,4 +17,8 @@ public interface ArticleRepo extends JpaRepository<Article, String>{
 
     @Query("Select a FROM Article a WHERE a.title like :title AND a.state = :#{#state}")
     List<Article> findByTitleContainingAndState(@Param("title") String title, @Param("state") State state);
+
+    
+    void deleteByUserId(String userId);
+
 }

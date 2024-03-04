@@ -128,7 +128,6 @@ public class ArticleRepoTest {
 
     @Test
     void testFindByTitleLikeAndState(){
-
         try {
 
             List<Article> articles = articleRepo.findByTitleContainingAndState("%Java%", State.PUBLISHED);
@@ -142,5 +141,20 @@ public class ArticleRepoTest {
         }
 
     }    
+
+    @Test
+    void deleteByUserId(){
+        
+        try {
+
+            articleRepo.deleteByUserId(user_2.getId());
+
+            assertEquals(2, articleRepo.findAll().size());  
+                      
+        } catch (Exception e) {
+            logger.error("Error in deleteByUserId: {}", e.getMessage());
+        }
+
+    }
 
 }
