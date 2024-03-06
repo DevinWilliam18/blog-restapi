@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.demo.model.Article;
 import com.example.demo.model.State;
+import com.example.demo.others.exception.ArticleNotFoundException;
 import com.example.demo.repo.ArticleRepo;
 import com.example.demo.service.ArticleService;
 
@@ -17,44 +18,61 @@ public class ArticleServiceImpl implements ArticleService{
     @Autowired
     private ArticleRepo articleRepo;
 
-    private static final Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);
-
     @Override
     public Article save(Article article) {
         return articleRepo.saveAndFlush(article);
     }
 
     @Override
-    public List<Article> getArticlesByUserId(String userId) {
-        
-        return articleRepo.findByUserId(userId);
-        
-    }
+    public List<Article> getArticlesByUserId(String userId){
+        List<Article> articles = articleRepo.findByUserId(userId);
 
-    @Override
-    public List<Article> getArticleByTitleContainingAndState(String title, State state) {
-        List<Article> articles = articleRepo.findByTitleContainingAndState(title, state);
+        if (articles == null) {
+            throw new ArticleNotFoundException(String.format("userId %s", userId));
+        }
 
         return articles;
     }
 
     @Override
-    public void deleteByUserId(String userId) {
-        List<Article> articles = getArticlesByUserId(userId);
-        if (articles != null) {
-            articleRepo.deleteByUserId(userId);
+    public List<Article> getArticleByTitleContainingAndState(String title, State state) {
+
+
+        List<Article> articles = articleRepo.findByTitleContainingAndState(title, state);
+
+        if (articles == null) {
+            throw new ArticleNotFoundException(String.format("title '%s' and state '%s'", title, state));
         }
+
+        return articles;
     }
 
     @Override
-    public void deleteById(String id) {
+    public void deleteByUserId(String userId) throws ArticleNotFoundException{
+        //check whether article exists or not 
+        getArticlesByUserId(userId);
         
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+        articleRepo.deleteByUserId(userId);
+        
     }
 
-    public Article getArticleById(String id){
+    @Override
+    public void deleteById(String id){
+        
+        Optional<Article> article = getArticleById(id); 
+
+        if (article.isPresent()) {
+            articleRepo.deleteById(id);
+        }
+
+        throw new ArticleNotFoundException(String.format("id %s", id));
+
+    }
+
+    public Optional<Article> getArticleById(String id) throws ArticleNotFoundException{
         Optional<Article> article = articleRepo.findById(id);
-        article.isPresent()
+
+        return article;
 
     }
     
