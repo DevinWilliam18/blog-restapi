@@ -22,4 +22,6 @@ public interface ArticleRepo extends JpaRepository<Article, String>{
     
     void deleteByUserId(String userId);
 
+    // add exist method
+
 }
