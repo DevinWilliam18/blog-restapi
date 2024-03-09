@@ -48,7 +48,7 @@ public class ArticleRepoTest {
     private void initData(){
 
         user = User.builder()
-                    .fullname("VIns")
+                    .fullname("Vins")
                     .email("devin@gmail.com")
                     .password("xx090")
                     .username("vindes_99")
