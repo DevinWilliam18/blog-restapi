@@ -18,6 +18,9 @@ public class ArticleServiceImpl implements ArticleService{
     @Autowired
     private ArticleRepo articleRepo;
 
+
+    private static final Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);
+
     @Override
     public Article save(Article article) {
         return articleRepo.saveAndFlush(article);
@@ -62,10 +65,15 @@ public class ArticleServiceImpl implements ArticleService{
         Optional<Article> article = getArticleById(id); 
 
         if (article.isPresent()) {
+            
             articleRepo.deleteById(id);
+
+        }else{
+
+            throw new ArticleNotFoundException(String.format("id %s", id));
+        
         }
 
-        throw new ArticleNotFoundException(String.format("id %s", id));
 
     }
 
