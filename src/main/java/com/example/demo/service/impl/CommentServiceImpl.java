@@ -20,25 +20,22 @@ public class CommentServiceImpl implements CommentService{
 
     @Override
     public Comment save(Comment comment) {
-        
-        Optional<Comment> storedComment = commentRepo.findById(comment.getId());
-
-        if (storedComment.isPresent()) {
-            throw new 
-        }
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+        return commentRepo.saveAndFlush(comment);
     }
 
     @Override
     public List<Comment> getCommentsByUserId(String userId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCommentsByUserId'");
+        List<Comment> getAllCommentsByUserId = commentRepo.findByUserId(userId);
+
+        return getAllCommentsByUserId;
     }
 
     @Override
     public List<Comment> getCommentsByArticleId(String articleId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCommentsByArticleId'");
+        List<Comment> getAllCommentsByArticleId = commentRepo.findByArticleId(articleId);
+
+        return getAllCommentsByArticleId;
+
     }
     
 }
