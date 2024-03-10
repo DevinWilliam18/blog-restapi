@@ -13,5 +13,5 @@ import java.util.List;
 @Repository
 public interface FriendshipRepo extends JpaRepository<Friendship, String>{
 
-    Friendship findByFrom_Id(String fromId);
+    List<Friendship> findByFrom_Id(String fromId);
 }

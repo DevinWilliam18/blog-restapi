@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -20,6 +20,8 @@ import com.example.demo.repo.UserRepository;
 
 
 
+
+
 @DataJpaTest
 public class FriendshipRepoTest {
     
@@ -29,9 +31,9 @@ public class FriendshipRepoTest {
     @Autowired
     private FriendshipRepo friendshipRepo;
 
-    private User user, user2;
+    private User user, user2, user3;
 
-    private Friendship friendship;
+    private Friendship friendship, friendship2;
 
     private static final Logger logger = LoggerFactory.getLogger(FriendshipRepoTest.class);
 
@@ -55,9 +57,17 @@ public class FriendshipRepoTest {
                     .updatedAt(new Timestamp(System.currentTimeMillis()))
                     .build();        
     
-        userRepository.save(user);
 
-        userRepository.save(user2);
+        user3 = User.builder()
+                    .fullname("Dodo Al Hilal")
+                    .email("dodo@gmail.com")
+                    .password("drf243")
+                    .username("dodo_07")
+                    .createdAt(new Timestamp(System.currentTimeMillis()))
+                    .updatedAt(new Timestamp(System.currentTimeMillis()))
+                    .build();
+
+        userRepository.saveAll(Arrays.asList(user,user2,user3));
 
         friendship = Friendship.builder()
                                 .from(user)
@@ -66,17 +76,21 @@ public class FriendshipRepoTest {
                                 .updatedAt(new Timestamp(System.currentTimeMillis()))
                                 .build();
         
-        friendshipRepo.save(friendship);
+        friendship2 = Friendship.builder()
+                                .from(user)
+                                .to(user3)
+                                .createdAt(new Timestamp(System.currentTimeMillis()))
+                                .updatedAt(new Timestamp(System.currentTimeMillis()))
+                                .build();
+                                                                
+        friendshipRepo.saveAll(Arrays.asList(friendship, friendship2));
     }
     
     @Test
     void testFindByTo_Id() {
-        Friendship friendships = friendshipRepo.findByFrom_Id(user.getId());
+        List<Friendship> friendships = friendshipRepo.findByFrom_Id(user.getId());
 
-        logger.info("test by id: {}", friendships);
-
-
-        assertEquals("devin@gmail.com", user.getEmail());
+        assertEquals(friendships.size(), 2);
 
     }
 }
