@@ -8,5 +8,7 @@ public interface FriendshipService {
     List<Friendship> getByFrom_Id(String fromId);
 
     void deleteFriendshipByFromIdAndToId(String fromId, String toId);
+
+    Friendship save(Friendship friendship);
     
 }

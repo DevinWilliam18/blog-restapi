@@ -72,6 +72,7 @@ public class FriendshipServiceImplTest {
 
         friendship = Friendship
                                 .builder()
+                                .id("--friendship--")
                                 .from(user)
                                 .to(user2)
                                 .createdAt(new Timestamp(System.currentTimeMillis()))
@@ -80,6 +81,7 @@ public class FriendshipServiceImplTest {
 
         friendship2 = Friendship
                                 .builder()
+                                .id("--friendship 2--")
                                 .from(user)
                                 .to(user3)
                                 .createdAt(new Timestamp(System.currentTimeMillis()))
@@ -110,4 +112,15 @@ public class FriendshipServiceImplTest {
         assertEquals(friendships.size(), 2);
 
     }
+
+    @Test
+    void testSave() {
+    
+        when(friendshipRepo.saveAndFlush(friendship)).thenReturn(friendship);
+
+        Friendship storedFriendship = friendshipServiceImpl.save(friendship);
+
+        assertEquals(storedFriendship.getId(), friendship.getId());
+
+    }    
 }

@@ -30,4 +30,9 @@ public class FriendshipServiceImpl implements FriendshipService{
         friendshipRepo.deleteByFrom_IdAndTo_Id(fromId, toId);
     }
 
+    @Override
+    public Friendship save(Friendship friendship) {
+        return friendshipRepo.saveAndFlush(friendship);
+    }
+
 }
