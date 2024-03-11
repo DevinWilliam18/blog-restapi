@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Article;
 import com.example.demo.model.State;
@@ -13,11 +14,11 @@ import com.example.demo.others.exception.ArticleNotFoundException;
 import com.example.demo.repo.ArticleRepo;
 import com.example.demo.service.ArticleService;
 
+@Service
 public class ArticleServiceImpl implements ArticleService{
 
     @Autowired
     private ArticleRepo articleRepo;
-
 
     private static final Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);
 
@@ -83,5 +84,5 @@ public class ArticleServiceImpl implements ArticleService{
         return article;
 
     }
-    
+   
 }
