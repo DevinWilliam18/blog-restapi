@@ -14,4 +14,7 @@ import java.util.List;
 public interface FriendshipRepo extends JpaRepository<Friendship, String>{
 
     List<Friendship> findByFrom_Id(String fromId);
+
+    void deleteByFrom_IdAndTo_Id(String fromId, String toId);
+
 }
