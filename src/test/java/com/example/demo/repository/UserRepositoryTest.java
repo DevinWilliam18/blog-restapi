@@ -3,6 +3,8 @@ package com.example.demo.repository;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +24,7 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
-    private User user, userStored;
+    private User user, user2, user3;
 
 
     private static final Logger logger = LoggerFactory.getLogger(UserRepositoryTest.class);    
@@ -31,7 +33,7 @@ public class UserRepositoryTest {
     private void setUpInit(){
 
         user = User.builder()
-                    .fullname("VIns")
+                    .fullname("Vins")
                     .email("devin@gmail.com")
                     .password("xx090")
                     .username("vindes_99")
@@ -39,15 +41,33 @@ public class UserRepositoryTest {
                     .updatedAt(new Timestamp(System.currentTimeMillis()))
                     .build();
 
-        userRepository.save(user);
+        user2 = User.builder()
+                    .fullname("Vinson")
+                    .email("vin@gmail.com")
+                    .password("xxs090")
+                    .username("desvindes_a99")
+                    .createdAt(new Timestamp(System.currentTimeMillis()))
+                    .updatedAt(new Timestamp(System.currentTimeMillis()))
+                    .build();                    
+
+        user3 = User.builder()
+                    .fullname("WIlson")
+                    .email("vinss@gmail.com")
+                    .password("xxs091090")
+                    .username("dedong")
+                    .createdAt(new Timestamp(System.currentTimeMillis()))
+                    .updatedAt(new Timestamp(System.currentTimeMillis()))
+                    .build(); 
+
+        userRepository.saveAll(Arrays.asList(user, user2, user3));
 
     }
 
     @Test
     void testFindByUsername() {
-        userStored = userRepository.findByUsername("vindes_99");
+        List<User> users = userRepository.findByUsernameContaining("%vin%");
 
-        assertEquals("vindes_99", userStored.getUsername());
+        assertEquals(users.size(), 2);
     }
 
 }
