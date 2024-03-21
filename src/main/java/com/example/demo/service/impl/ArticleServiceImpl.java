@@ -61,27 +61,23 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     @Override
-    public void deleteById(String id){
+    public void deleteById(String id) throws ArticleNotFoundException{
         
-        Optional<Article> article = getArticleById(id); 
+        getArticleById(id); 
 
-        if (article.isPresent()) {
-            
-            articleRepo.deleteById(id);
-
-        }else{
-
-            throw new ArticleNotFoundException(String.format("id %s", id));
+        articleRepo.deleteById(id);
         
-        }
-
 
     }
 
-    public Optional<Article> getArticleById(String id) throws ArticleNotFoundException{
-        Optional<Article> article = articleRepo.findById(id);
+    public Optional<Article> getArticleById(String id) {
+        Optional<Article> articles = articleRepo.findById(id);
 
-        return article;
+        if (articles.isEmpty()) {
+            throw new ArticleNotFoundException(String.format("id %s", id));
+        }
+
+        return articles;
 
     }
    

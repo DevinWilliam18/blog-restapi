@@ -6,24 +6,24 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
-@Configuration
-@EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
+// @Configuration
+// @EnableWebSecurity
+public class SecurityConfig{
+    // extends WebSecurityConfigurerAdapter
+    // @Override
+    // protected void configure(HttpSecurity http) throws Exception {
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-
-        //incomplete config settings
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-            .csrf().disable()
-            .httpBasic().disable()
-            .formLogin().disable()
-            .logout().disable()
-            .authorizeRequests()
-                .antMatchers("").permitAll();
+    //     //incomplete config settings
+    //     http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+    //         .and()
+    //         .csrf().disable()
+    //         .httpBasic().disable()
+    //         .formLogin().disable()
+    //         .logout().disable()
+    //         .authorizeRequests()
+    //             .antMatchers("").permitAll();
 
 
-    }
+    // }
     
 }
