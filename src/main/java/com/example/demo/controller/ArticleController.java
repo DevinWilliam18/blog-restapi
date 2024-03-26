@@ -1,13 +1,16 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dto.ArticleDto;
 import com.example.demo.model.Article;
 import com.example.demo.model.State;
 import com.example.demo.others.exception.ArticleNotFoundException;
@@ -27,9 +30,12 @@ public class ArticleController {
     
     private final  ArticleService articleService;
 
+    private final ModelMapper modelMapper;
+
     @Autowired
-    public ArticleController(ArticleService articleService){
+    public ArticleController(ArticleService articleService, ModelMapper modelMapper){
         this.articleService = articleService;
+        this.modelMapper = modelMapper;
     }
 
 
@@ -47,7 +53,13 @@ public class ArticleController {
         try {
             List<Article> articles = articleService.getArticlesByUserId(id);
 
-            return new ResponseEntity<>(articles, HttpStatus.OK);
+            List<ArticleDto> articlesDto = articles
+                                                    .stream()
+                                                    .map(article -> modelMapper.map(article, ArticleDto.class))
+                                                    .collect(Collectors.toList());
+            
+
+            return new ResponseEntity<>(articlesDto, HttpStatus.OK);
 
         } catch (ArticleNotFoundException a) {
             return new ResponseEntity<>(a.getMessage(), HttpStatus.NOT_FOUND);

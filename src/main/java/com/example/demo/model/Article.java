@@ -18,6 +18,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 
@@ -47,6 +49,8 @@ public class Article {
 
     private String description;
 
+
+    
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

@@ -16,6 +16,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -43,7 +45,7 @@ public class Comment {
     @Column(name = "comment_body")
     private String commentBody;
 
-    
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "article_id")    
     private Article article;
