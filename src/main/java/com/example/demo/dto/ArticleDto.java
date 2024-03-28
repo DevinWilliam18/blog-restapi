@@ -20,12 +20,12 @@ public class ArticleDto {
 
     private String title;
 
-    private String descriptions;
+    private String description;
 
-    private User user;
+    private UserDto user;
 
     private State state;
 
-    private List<Comment> comments;
+    private List<CommentDto> comments;
     
 }

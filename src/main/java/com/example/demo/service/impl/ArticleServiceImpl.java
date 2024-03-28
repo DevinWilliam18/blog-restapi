@@ -8,10 +8,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.ArticleRegisterDto;
 import com.example.demo.model.Article;
 import com.example.demo.model.State;
+import com.example.demo.model.User;
 import com.example.demo.others.exception.ArticleNotFoundException;
 import com.example.demo.repo.ArticleRepo;
+import com.example.demo.repo.UserRepository;
 import com.example.demo.service.ArticleService;
 
 @Service
@@ -20,10 +23,18 @@ public class ArticleServiceImpl implements ArticleService{
     @Autowired
     private ArticleRepo articleRepo;
 
+    @Autowired
+    private UserRepository userRepository;
+
     private static final Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);
 
     @Override
-    public Article save(Article article) {
+    public Article save(Article article, String userId) {
+
+        Optional<User> user = userRepository.findById(userId);
+
+        article.setUser(user.get());
+
         return articleRepo.saveAndFlush(article);
     }
 

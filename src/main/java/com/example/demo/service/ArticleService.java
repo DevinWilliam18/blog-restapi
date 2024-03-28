@@ -2,14 +2,13 @@ package com.example.demo.service;
 
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
 
 import com.example.demo.model.Article;
 import com.example.demo.model.State;
 
 public interface ArticleService {
 
-    Article save(Article article);
+    Article save(Article article, String userId);
 
     List<Article> getArticlesByUserId(String userId);
 
